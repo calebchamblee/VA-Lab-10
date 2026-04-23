@@ -15,10 +15,12 @@ The packages required to run this repo are specified in ```requirements.txt```. 
 ### Step 4: Run & complete 'TODO's in notebook
 Run the notebook ```stylegan2_lab.ipynb``` and search for the incomplete lines of code with "TODO"s. 
 
-### Step 5: Run & complete 'TODO's in notebook
+### Step 5: Update ```backend/model.py```
+Complete the TODOs in ```backend/model.py``` using the code you ran in the notebook. You should be able to transfer the lines you wrote in the notebook to this file with no (or minimal) changes. This is essentially a version of your notebook that interacts with the front end interface.
 
 ### To start the server: 
 ```uvicorn backend.app:app --reload --host 127.0.0.1 --port 8000```
+
 Then access the front end interface: 
 ``` http://127.0.0.1:8000```
 
