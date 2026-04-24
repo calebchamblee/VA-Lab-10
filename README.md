@@ -7,9 +7,13 @@ A custom version that lets you blend 2-5 faces using a weighted linear combinati
 All custom files follow the custom_X naming convention and live alongside the originals in the same subdirectories:
 
 backend/custom_model.py — copy of model.py with a new blend() function added at the bottom
+
 backend/custom_app.py — copy of app.py, trimmed down to only the endpoints we need (/generate and /blend), plus the new /blend endpoint
+
 frontend/custom_index.html — new layout with a side panel and N-face grid (not yet styled)
+
 frontend/custom_app.js — new frontend logic for generating N faces and blending them
+
 frontend/custom_style.css — styling for the custom interface (empty as of now)
 
 **How to Run**
