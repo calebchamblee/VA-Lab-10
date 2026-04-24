@@ -1,7 +1,9 @@
 **What I Changed**
 
 A custom version that lets you blend 2-5 faces using a weighted linear combination.
-New Files
+
+**New Files**
+
 All custom files follow the custom_X naming convention and live alongside the originals in the same subdirectories:
 
 backend/custom_model.py — copy of model.py with a new blend() function added at the bottom
