@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>StyleGAN2 Face Blender</title>
+    <link rel="stylesheet" href="/static/custom_style.css" />
+  </head>
+  <body>
+    <div class="app-container">
+      <h1>StyleGAN2 Face Blender</h1>
+      <div class="main-layout">
+        <div class="side-panel">
+            <label for ="numFaces">Number of Faces</label>
+            <select id = "numFaces">
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+            <div id="weightInputs"></div>
+            <p class="message">Weights can be negative (subtraction). Weights will be auto-normalized so only the weights relative to others matters.</p>
+            <button id="applyBtn">Apply Weights</button>
+            <button id="newFacesBtn">New Faces</button>
+            <div id="formula" class="formula"></div>
+            <div id="errorMsg" class="errorMsg"></div>
+        </div>
+        <div class="content">
+            <div id="facesRow"></div>
+            <div class="result">
+                <h2>Result</h2>
+                <p id="resultMsg">Set weights and press Apply to generate result.</p>
+                <img id="imgOut" src="" alt="Blended result">
+            </div>
+        </div>
+      </div>
+    </div>
+    <script src="/static/custom_app.js"></script>
+  </body>
+</html>

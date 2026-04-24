@@ -25,7 +25,7 @@ if torch.cuda.is_available():
 elif torch.backends.mps.is_available():
     device = 'mps'
 
-with open('download/ffhq.pkl', 'rb') as f:
+with open('downloads/ffhq.pkl', 'rb') as f:
     G = pkl.load(f)['G_ema'].to(device)
 G.eval()
 print('Generator loaded: z_dim=', G.z_dim, 'resolution=', G.img_resolution)
@@ -51,16 +51,17 @@ def _z_path(z_id):
 def _image_path(img_id):
     return os.path.join(IMAGE_DIR, f"{img_id}.png")
 
-
 def _pil_to_data_url(pil_img):
     buf = io.BytesIO()
     pil_img.save(buf, format='PNG')
     b = base64.b64encode(buf.getvalue()).decode('ascii')
     return f"data:image/png;base64,{b}"
 
-
+def sample_z():
+    return torch.randn([1, G.z_dim], device=device)
+    
 def sample_and_generate():
-    z = # TODO: sample z 
+    z = sample_z()
     z_id = _save_z_and_get_id(z)
     img_b64 = generate_from_z_tensor(z)
     return z_id, img_b64
@@ -92,11 +93,11 @@ def arithmetic(z_id_a, z_id_b, operation='add'):
     z_a = torch.load(path_a).to(device)
     z_b = torch.load(path_b).to(device)
     if operation == 'add':
-        z_new = # TODO 
+        z_new = z_a + z_b
     elif operation == 'subtract_ab':
-        z_new = # TODO 
+        z_new = z_a - z_b
     elif operation == 'subtract_ba':
-        z_new = # TODO 
+        z_new = z_b - z_a
     else:
         raise ValueError('unsupported operation')
     new_id = _save_z_and_get_id(z_new)
@@ -115,7 +116,7 @@ def interpolate(z_id_a, z_id_b, steps=7):
     ids = []
     alphas = list(np.linspace(0.0, 1.0, steps))
     for i, a in enumerate(alphas):
-        z_new = # TODO 
+        z_new = (1 - a) * z_a + a * z_b
         new_id = _save_z_and_get_id(z_new)
         ids.append(new_id)
         img_b64 = generate_from_z_tensor(z_new)
@@ -135,7 +136,7 @@ def interpolate_weight(z_id_a, z_id_b, weight=0.5):
     z_a = torch.load(path_a).to(device)
     z_b = torch.load(path_b).to(device)
     w = float(weight)
-    z_new = # TODO 
+    z_new = (1 - w) * z_a + w * z_b
     new_id = _save_z_and_get_id(z_new)
     img_b64 = generate_from_z_tensor(z_new)
     return new_id, img_b64
