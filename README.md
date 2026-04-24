@@ -1,29 +1,25 @@
-If you have set up on Tuesday, you can jump to step 4! 
+**What I Changed**
 
-### Step 1: Pull repo
-```git clone https://github.com/susiesyli/cs178-latent-space-lab.git```
+A custom version that lets you blend 2-5 faces using a weighted linear combination.
+New Files
+All custom files follow the custom_X naming convention and live alongside the originals in the same subdirectories:
 
-### Step 2: Download pretrained StyleGAN2 model 
-```mkdir download```
+backend/custom_model.py — copy of model.py with a new blend() function added at the bottom
+backend/custom_app.py — copy of app.py, trimmed down to only the endpoints we need (/generate and /blend), plus the new /blend endpoint
+frontend/custom_index.html — new layout with a side panel and N-face grid (not yet styled)
+frontend/custom_app.js — new frontend logic for generating N faces and blending them
+frontend/custom_style.css — styling for the custom interface (empty as of now)
 
-```wget -P download https://nvlabs-fi-cdn.nvidia.com/stylegan2-ada-pytorch/pretrained/ffhq.pkl```
+**How to Run**
 
-### Step 3: Install dependencies:
-The packages required to run this repo are specified in ```requirements.txt```. You can install them manually or via the command 
-```pip install -r requirements.txt```
+From the root of the project:
+cmduvicorn backend.custom_app:app --reload --host 127.0.0.1 --port 8000
+Then open http://127.0.0.1:8000 in your browser.
 
-### Step 4: Run & complete 'TODO's in notebook
-Run the notebook ```stylegan2_lab.ipynb``` and search for the incomplete lines of code with "TODO"s. 
+**How to Use**
 
-### Step 5: Update ```backend/model.py```
-Complete the TODOs in ```backend/model.py``` using the code you ran in the notebook. You should be able to transfer the lines you wrote in the notebook to this file with no (or minimal) changes. This is essentially a version of your notebook that interacts with the front end interface.
-
-### To start the server: 
-```uvicorn backend.app:app --reload --host 127.0.0.1 --port 8000```
-
-Then access the front end interface: 
-
-```http://127.0.0.1:8000```
-
-### Lecture slides from Tuesday
-https://susiesyli.com/cs178-latent-space-lecture/#0
+Select the number of faces (2–5) from the dropdown — faces generate automatically
+Set weights for each face (can be negative for subtraction)
+Weights are auto-normalized to sum to 1 before blending
+Hit Apply Weights to generate the blended result (even on page load)
+Hit New Faces to regenerate random faces with the same count
